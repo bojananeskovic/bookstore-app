@@ -1,72 +1,98 @@
 <template>
   <div class="products-wrapper">
     <div class="products-title">
-      <h1>Select Product Category to see all products</h1>
+      <h1>Select product category to see all products</h1>
     </div>
     <div class="single-products">
-      <div class="left-single-product book-product">
-          <h1 class="single-product-title">Book Products</h1>
+      <div @click="goToBookProducts" class="left-single-product book-products">
+          <h1 class="single-product-title">Books</h1>
           <p class="single-product-desc">
           </p>
         </div>
-        <div class="right-single-product stationary-product">
-          <h1 class="single-product-title">Stationary Products</h1>
+        <div @click="goToStationaryProducts" class="right-single-product stationary-products">
+          <h1 class="single-product-title">Stationary</h1>
           <p class="single-product-desc">
           </p>
         </div>
-        <div class="left-single-product officeSupplies-product">
-          <h1 class="single-product-title">Office supplies Products</h1>
-          <p class="single-product-desc">.
-          </p>
-        </div>
-        <div class="right-single-product classbook-product">
-          <h1 class="single-product-title">Classbook Products</h1>
+        <div @click="goToOfficeSuppliesProducts" class="left-single-product officeSupplies-products">
+          <h1 class="single-product-title">Office supplies</h1>
           <p class="single-product-desc">
           </p>
         </div>
-        <!-- <div class="left-single-product ranches-product">
-          <h1 class="single-product-title">Ranches Products</h1>
+        <div @click="goToClassBookProducts" class="right-single-product classbook-products">
+          <h1 class="single-product-title">Classbooks</h1>
           <p class="single-product-desc">
           </p>
         </div>
-         <div class="right-single-product gifts-product">
-          <h1 class="single-product-title">Gifts Products</h1>
+        <div @click="goToRanchesProducts" class="left-single-product ranches-products">
+          <h1 class="single-product-title">Ranches</h1>
           <p class="single-product-desc">
           </p>
         </div>
-        <div class="left-single-product boardGames-product">
-          <h1 class="single-product-title">Board games Products</h1>
+         <div @click="goToGiftsProducts" class="right-single-product gifts-products">
+          <h1 class="single-product-title">Gifts</h1>
           <p class="single-product-desc">
           </p>
         </div>
-         <div class="right-single-product art-product">
-          <h1 class="single-product-title">Art Products</h1>
+        <div @click="goToBoardGamesProducts" class="left-single-product boardGames-products">
+          <h1 class="single-product-title">Board games</h1>
           <p class="single-product-desc">
           </p>
-        </div> -->
+        </div>
+         <div @click="goToArtProducts" class="right-single-product art-products">
+          <h1 class="single-product-title">Art</h1>
+          <p class="single-product-desc">
+          </p>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+   methods: {
+      goToBookProducts() {
+        this.$router.push('/products/book-products');
+      },
+      goToStationaryProducts() {
+        this.$router.push('/products/stationary-products');
+      },
+      goToOfficeSuppliesProducts() {
+        this.$router.push('/products/officeSupplies-products');
+      },
+      goToClassBookProducts() {
+        this.$router.push('/products/classbook-products');
+      },
+      goToRanchesProducts() {
+        this.$router.push('/products/ranches-products');
+      },
+      goToGiftsProducts() {
+        this.$router.push('/products/gifts-products');
+      },
+      goToBoardGamesProducts() {
+        this.$router.push('/products/boardGames-products');
+      },
+      goToArtProducts() {
+        this.$router.push('/products/art-products');
+      }
+    }
 }
 </script>
 
 <style scoped>
-  * {
+* {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-  .products-wrapper {
+.products-wrapper {
     width: 100%;
     height: 91.5vh;
     background: rgb(243, 233, 206);
     display: flex;
     flex-direction: column;
   } 
-  .products-title {
+.products-title {
     font-family: 'Indie Flower', cursive;
     font-size: 35px;
     font-weight: bold;
@@ -75,7 +101,7 @@ export default {
     padding-bottom: 10px;
     margin-bottom: 15px;
   } 
-  .single-products {
+.single-products {
     width: 100%;
     height: 100%;
     background: white;
@@ -85,38 +111,87 @@ export default {
   }
 .left-single-product {
     align-self: flex-start;
-    width: 50%;
+    width: 25%;
     height: 50%;
-    border: 3px solid rgb(252, 215, 146);
+    border: 3px solid rgb(184, 170, 91);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0.85;
   }
-  .right-single-product {
-    align-self: flex-end;
-    width: 50%;
+.right-single-product {
+    width: 25%;
     height: 50%;
-    border: 3px solid rgb(252, 215, 146);
+    border: 3px solid rgb(184, 170, 91);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0.85;
   }
-  .single-product-title {
+.single-product-title {
     font-family: 'Indie Flower', cursive;
     font-weight: bold;
     color: white;
     text-shadow: 2px 2px black;
   }
-  .single-product-desc {
+.single-product-desc {
     font-family: 'Indie Flower', cursive;
     text-align: center;
     width: 80%;
     font-size: 20px;
     color: white;
     text-shadow: 2px 2px black;
+  }
+.book-products {
+    background-image: url("../../assets/book-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.stationary-products{
+    background-image: url("../../assets/stationary-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.officeSupplies-products{
+    background-image: url("../../assets/officeSupplies-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.classbook-products{
+    background-image: url("../../assets/classbook-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.ranches-products{
+    background-image: url("../../assets/ranches-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gifts-products{
+    background-image: url("../../assets/gifts-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.boardGames-products{
+    background-image: url("../../assets/boardGames-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.art-products{
+    background-image: url("../../assets/art-products.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.left-single-product:hover {
+    opacity: 100%;
+    transition: 0.3s ease;
+    cursor: pointer;
+  }
+.right-single-product:hover {
+    opacity: 100%;
+    transition: 0.3s ease;
+    cursor: pointer;
   }
 </style>

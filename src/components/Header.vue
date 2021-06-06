@@ -28,11 +28,11 @@
 <style scoped>
   * {
     font-family: 'Indie Flower', cursive;
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bold;
   }
   .navbar {
-    background: rgb(248, 192, 107);
+    background: rgb(184, 170, 91);
   }
   .navbar-title {
     color: rgb(54, 54, 54);
