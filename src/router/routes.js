@@ -9,6 +9,8 @@ import GiftsProduct from '../components/products/GiftsProduct.vue';
 import OfficeSuppliesProduct from '../components/products/OfficeSuppliesProduct.vue';
 import RanchesProduct from '../components/products/RanchesProduct.vue';
 import StationaryProduct from '../components/products/StationaryProduct.vue';
+import Login from '../components/Login.vue';
+import Register from '../components/Register.vue';
 
 const routes = [
   {path: '/', component: Home},
@@ -22,7 +24,10 @@ const routes = [
   {path: '/products/gifts-products', component: GiftsProduct},
   {path: '/products/officeSupplies-products', component: OfficeSuppliesProduct},
   {path: '/products/ranches-products', component: RanchesProduct},
-  {path: '/products/stationary-products', component: StationaryProduct}
+  {path: '/products/stationary-products', component: StationaryProduct},
+  {path: '/login', component: Login},
+  {path: '/register', component: Register}
 ];
 
 export default routes;
+
