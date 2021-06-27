@@ -18,7 +18,13 @@ export const store = new Vuex.Store({
     boardGamesCollection: [],
     artCollection: []
   },
-
+  mutations:{
+    setUserProfile(state, val) {
+      state.userProfile = val;
+      state.userProfile['id'] = fb.auth.currentUser.uid;
+      console.log(state.userProfile);
+    }
+  },
   actions: {
 
     async login({dispatch}, form) {
@@ -74,13 +80,35 @@ export const store = new Vuex.Store({
       router.push('/login');
 
     },
-  },
 
-  mutations:{
-    setUserProfile(state, val) {
-      state.userProfile = val;
-      state.userProfile['id'] = fb.auth.currentUser.uid;
-      console.log(state.userProfile);
+    // ! Book Products Methods
+    // * Get All Books Methods
+    async getBookCollection({state}) {
+
+      let bookProductsRef = fb.booksCollection;
+      try {
+        let allBookProductsSnapshot = await bookProductsRef.get();
+        state.booksCollection = [];
+        allBookProductsSnapshot.forEach(doc => {
+          const singleBookProduct = doc.data();
+          singleBookProduct["id"] = doc.id;
+          state.booksCollection.push(singleBookProduct);
+          console.log(singleBookProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteBookProduct({state}, id) {
+      try {
+        await fb.booksCollection.doc(id).delete();
+        alert('Successfully deleted Product');
+      } catch(error) {
+        console.log(error);
+      }
     }
+
   }
 });
