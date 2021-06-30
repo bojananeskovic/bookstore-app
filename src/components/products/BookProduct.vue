@@ -1,7 +1,27 @@
 <template>
   <div class="product-wrapper">
     <div clas="all-products">
-      <div 
+    <div class="add-product-button-wrapper">
+      <button @click="onAddIcon" type="button" class="btn btn-warning">
+          Add new Book
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-square"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"
+            />
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+            />
+          </svg>
+        </button>
+    </div>
+      <div
         v-for="product in booksCollection"
         :key="product.id"
          class="single-product-card">
@@ -10,6 +30,23 @@
         <img :src="product.src" />
         <h4 @click="showInfo(product)" class="product-show-price">Click here to view Product Price</h4>
         <div class="action-buttons">
+          <svg
+            @click="onUpdateIcon(product)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil-square"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+            />
+          </svg>
           <svg
             @click="onDeleteIcon(product)"
             xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +64,7 @@
             />
           </svg>
         </div>
-      </div> 
+      </div>
     </div>
     <Modal v-model="showDeleteModal" modalClass="modal-wrapper">
       <h3>Removing Product: {{itemForDelete.name}} </h3>
@@ -41,6 +78,64 @@
       <br>
       <p>{{itemForInfo.price}}</p>
     </Modal>
+    <Modal v-model="showUpdateModal" modalClass="modal-wrapper">
+      <h2 class="add__modal-title">Update Product </h2>
+      <div class="modal-content">
+        <img :src="itemForUpdate.src" class="preview-image">
+        <h3 class="modal-content-name">Book name:</h3>
+        <input
+        class="modal__product__name-input"
+        type="text"
+        :maxlength="25"
+        v-model.lazy="itemForUpdate.name"/>
+        <h3 class="modal-content-price">Book Price:</h3>
+        <textarea
+         name="price"
+         placeholder="Enter Price"
+         class="modal__product__price-textarea"
+         :maxlength="50"
+         v-model.lazy="itemForUpdate.price"/>
+      </div>
+      <div class="delete-action-buttons">
+        <button class="btn btn-primary" @click="confirmUpdate(itemForUpdate)">Confirm</button>
+        <button class="btn btn-danger" @click="closeUpdateModal">Cancel</button>
+      </div>
+    </Modal>
+    <Modal v-model="showAddModal" modalClass="modal-wrapper">
+      <h2 class="add__modal-title">Add new Book</h2>
+      <div class="modal-content">
+        <h3 class="modal-content-name">Book name:</h3>
+        <input
+        class="modal__product__name-input"
+        type="text"
+        :maxlength="25"
+        placeholder="Enter Book Name"
+        v-model="productAdded.name">
+        <h3 class="modal-content-name">Book Image</h3>
+        <img style="border:none"
+        :src="productAdded.src">
+         <button @click="onPickFile()" class="upload-image-btn btn btn-light">
+        Upload Image
+      </button>
+        <input type="file"
+        ref="fileInput"
+        class="add__modal-image-btn"
+        style="display:none"
+        accept="image/*"
+        @change="onFilePicked()"/>
+        <h3 class="modal-content-name">Book price:</h3>
+        <textarea placeholder="Enter Book Price"
+        class="modal__product__price-textarea"
+        name="price"
+        id="price"
+        :maxlength="20"
+        v-model="productAdded.price"/>
+      </div>
+      <div class="delete-action-buttons">
+        <button class="btn btn-primary" @click="confirmAdd(productAdded)">Confirm</button>
+        <button class="btn btn-danger" @click="closeAddModal">Cancel</button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -51,14 +146,36 @@ export default {
     return {
       itemForDelete: {},
       itemForInfo: {},
+      itemForUpdate: {},
       showDeleteModal: false,
-      showInfoModal: false
+      showInfoModal: false,
+      showUpdateModal: false,
+      showAddModal: false,
+      copyOfItemForUpdate: {},
+      copyOfItemForAdd: {},
+      productAdded: {
+        name: "",
+        src: "",
+        price: ""
+      }
     }
   },
   methods:{
     onDeleteIcon(product) {
       this.itemForDelete = product;
       this.showDeleteModal = true;
+    },
+    onUpdateIcon(product) {
+      this.itemForUpdate = product;
+      this.showUpdateModal = true;
+      this.copyOfItemForUpdate = Object.assign({}, product);
+    },
+    onAddIcon() {
+      this.showAddModal = true;
+    },
+    async confirmUpdate() {
+      await this.$store.dispatch('updateBookProduct', this.itemForUpdate);
+      this.showUpdateModal = false;
     },
     confirmDelete(id) {
       this.$store.dispatch('deleteBookProduct', id);
@@ -67,6 +184,10 @@ export default {
     },
     closeDeleteModal() {
       this.showDeleteModal = false;
+    },
+     closeUpdateModal() {
+       Object.assign(this.itemForUpdate, this.copyOfItemForUpdate);
+      this.showUpdateModal = false;
     },
     showInfo(product) {
       this.itemForInfo = product;
@@ -122,6 +243,16 @@ export default {
     align-items: center;
     height: 550px;
   }
+  .btn-warning {
+  color: black;
+  width: 150px !important;
+  height: 100px !important;
+  background: rgb(184, 170, 91); /*ja sam dodala boju */
+  border: 2px solid black;/*ivice isto */
+  font-size: 20px;
+  font-family: "Indie Flower", cursive;
+  font-weight: bold;
+}
   .product-name,
   .product-show-price {
     font-family: "Indie Flower", cursive;
@@ -172,4 +303,53 @@ export default {
     font-family: sans-serif;
     text-align: justify;
   }
+  .add__modal-title {
+  text-align: center;
+  margin-bottom: 5px;
+  font-family: "Indie Flower", cursive;
+  font-weight: bold;
+}
+.preview-image {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.modal-content {
+  border: none !important;
+  padding: 10px 0;
+}
+.modal-content-name,
+.modal-content-price {
+  font-family: "Indie Flower", cursive;
+  text-align: center;
+  margin-top: 20px;
+}
+.modal__product__name-input,
+.modal__product__price-textarea {
+  padding: 5px;
+  font-family: sans-serif;
+}
+.modal__product__price-textarea {
+  height: 40px;
+}
+.modal-content-price {
+  margin-top: 15px;
+}
+.upload-image-btn {
+  width: 50%;
+  height: 100%;
+  margin-top: 10px;
+  align-self: center;
+}
+.image-preview {
+  border: none;
+  width: 220px;
+  height: 220px;
+  align-self:center
+}
+.add-product-button-wrapper {
+  padding-top: 30px;
+  margin-right: 15%;
+  align-self: center;
+}
 </style>

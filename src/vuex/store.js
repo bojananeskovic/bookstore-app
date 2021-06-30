@@ -108,7 +108,19 @@ export const store = new Vuex.Store({
       } catch(error) {
         console.log(error);
       }
-    }
+    },
 
+    async updateBookProduct({}, itemForUpdate) {
+      try {
+        await fb.booksCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Book was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 });
