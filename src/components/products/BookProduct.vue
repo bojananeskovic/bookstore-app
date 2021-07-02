@@ -4,7 +4,7 @@
       <input
         class="search-bar"
         v-model="filterText"
-        placeholder="Search for Recipes..."
+        placeholder="Search for Products..."
         type="text">
     </div>
     <div clas="all-products">
@@ -73,85 +73,49 @@
         </div>
       </div>
     </div>
-    <Modal v-model="showDeleteModal" modalClass="modal-wrapper">
-      <h3>Removing Product: {{itemForDelete.name}} </h3>
-      <div class="delete-action-buttons">
-        <button class="btn btn-primary" @click="confirmDelete(itemForDelete.id)">Confirm</button>
-        <button class="btn btn-danger" @click="closeDeleteModal">Cancel</button>
-      </div>
-    </Modal>
-    <Modal v-model="showInfoModal" modalClass="modal-wrapper modal-info">
-      <h1>{{itemForInfo.name}}</h1>
-      <br>
-      <p>{{itemForInfo.price}}</p>
-    </Modal>
-    <Modal v-model="showUpdateModal" modalClass="modal-wrapper">
-      <h2 class="add__modal-title">Update Product </h2>
-      <div class="modal-content">
-        <img :src="itemForUpdate.src" class="preview-image">
-        <h3 class="modal-content-name">Book name:</h3>
-        <input
-        class="modal__product__name-input"
-        type="text"
-        :maxlength="130"
-        v-model.lazy="itemForUpdate.name"/>
-        <h3 class="modal-content-price">Book Price:</h3>
-        <textarea
-         name="price"
-         placeholder="Enter Price"
-         class="modal__product__price-textarea"
-         :maxlength="50"
-         v-model.lazy="itemForUpdate.price"/>
-      </div>
-      <div class="delete-action-buttons">
-        <button class="btn btn-primary" @click="confirmUpdate(itemForUpdate)">Confirm</button>
-        <button class="btn btn-danger" @click="closeUpdateModal">Cancel</button>
-      </div>
-    </Modal>
-    <Modal v-model="showAddModal" modalClass="modal-wrapper">
-      <h2 class="add__modal-title">Add new Book</h2>
-      <div class="modal-content">
-        <h3 class="modal-content-name">Book name:</h3>
-        <input
-        class="modal__product__name-input"
-        type="text"
-        :maxlength="625"
-        placeholder="Enter Book Name"
-        v-model="productAdded.name">
-        <h3 class="modal-content-name">Book Image</h3>
-        <img style="border:none"
-        :src="productAdded.src">
-         <button @click="onPickFile()" class="upload-image-btn btn btn-light">
-        Upload Image
-      </button>
-        <input type="file"
-        ref="fileInput"
-        class="add__modal-image-btn"
-        style="display:none"
-        accept="image/*"
-        @change="onFilePicked">
-        <h3 class="modal-content-name">Book price:</h3>
-        <textarea placeholder="Enter Book Price"
-        class="modal__product__price-textarea"
-        name="price"
-        id="price"
-        :maxlength="200"
-        v-model="productAdded.price"/>
-      </div>
-      <div class="delete-action-buttons">
-        <button class="btn btn-primary" @click="confirmAdd(productAdded)">Confirm</button>
-        <button class="btn btn-danger" @click="closeAddModal">Cancel</button>
-      </div>
-    </Modal>
+    <app-delete-book-product-dialog
+      :showDeleteModal="showDeleteModal"
+      :itemForDelete="itemForDelete"
+      @deleteDialogClosed="showDeleteModal=$event"
+      v-model="showDeleteModal">
+    </app-delete-book-product-dialog>
+    <app-info-book-product-dialog
+      :showInfoModal="showInfoModal"
+      :itemForInfo="itemForInfo"
+      @infoDialogClosed="showInfoModal=$event"
+      v-model="showInfoModal">
+    </app-info-book-product-dialog>
+    <app-update-book-product-dialog
+      :showUpdateModal="showUpdateModal"
+      :itemForUpdate="itemForUpdate"
+      :copyOfItemForUpdate="copyOfItemForUpdate"
+      @originalProduct="itemForUpdate=$event"
+      @updateDialogClosed="showUpdateModal=$event"
+      v-model="showUpdateModal">
+    </app-update-book-product-dialog>
+    <app-add-book-product-dialog
+      :showAddModal="showAddModal"
+      @addDialogClosed="showAddModal=$event"
+      v-model="showAddModal">
+    </app-add-book-product-dialog>
   </div>
 </template>
 
 <script>
+import DeleteBookProductDialog from '../dialogs/bookProducts-dialogs/DeleteBookProductDialog.vue';
+import UpdateBookProductDialog from '../dialogs/bookProducts-dialogs/UpdateBookProductDialog.vue';
+import AddBookProductDialog from '../dialogs/bookProducts-dialogs/AddBookProductDialog.vue';
+import InfoBookProductDialog from '../dialogs/bookProducts-dialogs/InfoBookProductDialog.vue';
 import { mapState } from "vuex";
 export default {
+   components: {
+    'app-delete-book-product-dialog': DeleteBookProductDialog,
+    'app-update-book-product-dialog': UpdateBookProductDialog,
+    'app-add-book-product-dialog': AddBookProductDialog,
+    'app-info-book-product-dialog': InfoBookProductDialog
+  },
   data() {
     return {
-      previewImage: null,
       filterText: "",
       itemForDelete: {},
       itemForInfo: {},
@@ -160,50 +124,11 @@ export default {
       showInfoModal: false,
       showUpdateModal: false,
       showAddModal: false,
-      copyOfItemForUpdate: {},
-      copyOfItemForAdd: {},
-      productAdded: {
-        name: "",
-        src: "",
-        price: ""
-      }
+      copyOfItemForUpdate: {}
     }
   },
   methods:{
-    onFilePicked(event) {
-      const files = event.target.files;
-      let fileName = files[0].name;
-      if (fileName.lastIndexOf(".") <= 0) {
-        alert("Please provide image");
-      }
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", () => {
-        this.productAdded.src = fileReader.result;
-      });
-      fileReader.readAsDataURL(files[0]);
-      this.previewImage = files[0];
-    },
-    onPickFile() {
-      this.$refs.fileInput.click();
-    },
-    async confirmAdd() {
-      if(!this.previewImage) {
-        alert('No image was selected!');
-        return
-      }
-      const bookProduct = {
-        name: this.productAdded.name,
-        src: this.previewImage,
-        price: this.productAdded.price
-      }
-      await this.$store.dispatch('createBookProduct', bookProduct);
-      this.$store.dispatch('getBookCollection');
-      this.closeAddModal();
-    },
-    closeAddModal() {
-      this.showAddModal = false;
-      this.$emit('addDialogClosed', this.showAddModal);
-    },
+    
     onDeleteIcon(product) {
       this.itemForDelete = product;
       this.showDeleteModal = true;
@@ -215,22 +140,6 @@ export default {
     },
     onAddIcon() {
       this.showAddModal = true;
-    },
-    async confirmUpdate() {
-      await this.$store.dispatch('updateBookProduct', this.itemForUpdate);
-      this.showUpdateModal = false;
-    },
-    confirmDelete(id) {
-      this.$store.dispatch('deleteBookProduct', id);
-      this.closeDeleteModal();
-      this.$store.dispatch('getBookCollection');
-    },
-    closeDeleteModal() {
-      this.showDeleteModal = false;
-    },
-     closeUpdateModal() {
-       Object.assign(this.itemForUpdate, this.copyOfItemForUpdate);
-      this.showUpdateModal = false;
     },
     showInfo(product) {
       this.itemForInfo = product;
@@ -254,159 +163,5 @@ export default {
 
 
 <style scoped>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  .product-wrapper {
-    background: rgb(243, 233, 206);
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .all-products {
-    padding: 50px 20px;
-    padding-top: 100px;
-    display: flex;
-    /* width: 100%;
-    height: 100%; */
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .single-product-card {
-    background: rgb(184, 170, 91);
-    border: 2px solid black;
-    margin: 10px 30px 0 0;
-    padding: 20px 20px;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    height: 550px;
-  }
-  .btn-warning {
-  color: black;
-  width: 150px !important;
-  height: 100px !important;
-  background: rgb(184, 170, 91); /*ja sam dodala boju */
-  border: 2px solid black;/*ivice isto */
-  font-size: 20px;
-  font-family: "Indie Flower", cursive;
-  font-weight: bold;
-}
-  .product-name,
-  .product-show-price {
-    font-family: "Indie Flower", cursive;
-  }
-  .product-name {
-    font-weight: bolder;
-  }
-  .product-show-price {
-    margin-top: 40px;
-    font-size: 25px;
-  }
-  .product-show-price:hover,
-  .bi {
-    cursor: pointer;
-  }
-  .bi {
-    width: 25px;
-    height: 25px;
-  }
-  .product-img {
-    width: 250px;
-    height: 250px;
-    border: 1px solid black;
-  }
-  .modal-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  }
-  .action-buttons {
-    margin-top: 15px;
-  }
-  .delete-action-buttons {
-    align-self: center;
-    text-align: center;
-    padding: 20px 0;
-  }
-  .btn {
-    width: 100px;
-    height: 50px;
-  }
-  .modal-info h1 {
-  font-family: "Indie Flower", cursive;
-  text-align: center;
-  }
-  .modal-info p {
-    font-family: sans-serif;
-    text-align: justify;
-  }
-  .add__modal-title {
-  text-align: center;
-  margin-bottom: 5px;
-  font-family: "Indie Flower", cursive;
-  font-weight: bold;
-}
-.preview-image {
-  border: 1px solid black;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-.modal-content {
-  border: none !important;
-  padding: 10px 0;
-}
-.modal-content-name,
-.modal-content-price {
-  font-family: "Indie Flower", cursive;
-  text-align: center;
-  margin-top: 20px;
-}
-.modal__product__name-input,
-.modal__product__price-textarea {
-  padding: 5px;
-  font-family: sans-serif;
-}
-.modal__product__price-textarea {
-  height: 40px;
-}
-.modal-content-price {
-  margin-top: 15px;
-}
-.upload-image-btn {
-  width: 50%;
-  height: 100%;
-  margin-top: 10px;
-  align-self: center;
-}
-.image-preview {
-  border: none;
-  width: 220px;
-  height: 220px;
-  align-self:center
-}
-.add-product-button-wrapper {
-  padding-top: 30px;
-  margin-right: 15%;
-  margin-left: 30%;/*ovo sam ja dodala da bolje izgleda dugme */
-  align-self: center;
-}
-.search-bar {
-  margin-top: 100px;
-  width: 400px;
-  height: 100px;
-  border: 2px solid black;
-  text-align: center;
-}
+   @import '../../assets/products.css';
 </style>
