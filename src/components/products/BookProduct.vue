@@ -1,5 +1,12 @@
 <template>
   <div class="product-wrapper">
+    <div class="search-bar-wrapper">
+      <input
+        class="search-bar"
+        v-model="filterText"
+        placeholder="Search for Recipes..."
+        type="text">
+    </div>
     <div clas="all-products">
     <div class="add-product-button-wrapper">
       <button @click="onAddIcon" type="button" class="btn btn-warning">
@@ -22,7 +29,7 @@
         </button>
     </div>
       <div
-        v-for="product in booksCollection"
+        v-for="product in filteredBooks"
         :key="product.id"
          class="single-product-card">
         <h1 class="product-name">{{ product.name }}</h1>
@@ -86,7 +93,7 @@
         <input
         class="modal__product__name-input"
         type="text"
-        :maxlength="25"
+        :maxlength="130"
         v-model.lazy="itemForUpdate.name"/>
         <h3 class="modal-content-price">Book Price:</h3>
         <textarea
@@ -108,7 +115,7 @@
         <input
         class="modal__product__name-input"
         type="text"
-        :maxlength="25"
+        :maxlength="625"
         placeholder="Enter Book Name"
         v-model="productAdded.name">
         <h3 class="modal-content-name">Book Image</h3>
@@ -122,13 +129,13 @@
         class="add__modal-image-btn"
         style="display:none"
         accept="image/*"
-        @change="onFilePicked()"/>
+        @change="onFilePicked">
         <h3 class="modal-content-name">Book price:</h3>
         <textarea placeholder="Enter Book Price"
         class="modal__product__price-textarea"
         name="price"
         id="price"
-        :maxlength="20"
+        :maxlength="200"
         v-model="productAdded.price"/>
       </div>
       <div class="delete-action-buttons">
@@ -144,6 +151,8 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      previewImage: null,
+      filterText: "",
       itemForDelete: {},
       itemForInfo: {},
       itemForUpdate: {},
@@ -161,6 +170,40 @@ export default {
     }
   },
   methods:{
+    onFilePicked(event) {
+      const files = event.target.files;
+      let fileName = files[0].name;
+      if (fileName.lastIndexOf(".") <= 0) {
+        alert("Please provide image");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.productAdded.src = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.previewImage = files[0];
+    },
+    onPickFile() {
+      this.$refs.fileInput.click();
+    },
+    async confirmAdd() {
+      if(!this.previewImage) {
+        alert('No image was selected!');
+        return
+      }
+      const bookProduct = {
+        name: this.productAdded.name,
+        src: this.previewImage,
+        price: this.productAdded.price
+      }
+      await this.$store.dispatch('createBookProduct', bookProduct);
+      this.$store.dispatch('getBookCollection');
+      this.closeAddModal();
+    },
+    closeAddModal() {
+      this.showAddModal = false;
+      this.$emit('addDialogClosed', this.showAddModal);
+    },
     onDeleteIcon(product) {
       this.itemForDelete = product;
       this.showDeleteModal = true;
@@ -196,6 +239,12 @@ export default {
   },
   computed: {
     ...mapState(["booksCollection"]),
+      filteredBooks() {
+      return this.booksCollection.filter((item) => {
+        let name = item.name.toLowerCase();
+        return name.match(this.filterText);
+      })
+      },
   },
    mounted() {
     this.$store.dispatch("getBookCollection");
@@ -350,6 +399,14 @@ export default {
 .add-product-button-wrapper {
   padding-top: 30px;
   margin-right: 15%;
+  margin-left: 30%;/*ovo sam ja dodala da bolje izgleda dugme */
   align-self: center;
+}
+.search-bar {
+  margin-top: 100px;
+  width: 400px;
+  height: 100px;
+  border: 2px solid black;
+  text-align: center;
 }
 </style>

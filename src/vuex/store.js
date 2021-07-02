@@ -121,6 +121,31 @@ export const store = new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async createBookProduct({state}, payload) {
+      const bookProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.booksCollection.add(bookProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("bookProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.booksCollection.doc(key).get();
+      await fb.booksCollection.doc(key).update({
+        src: imageUrl
+      });
     }
   }
 });
