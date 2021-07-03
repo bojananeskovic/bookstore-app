@@ -279,7 +279,205 @@ export const store = new Vuex.Store({
       await fb.officeSuppliesCollection.doc(key).update({
         src: imageUrl
       });
+    },
+
+    // ! Classbook Products Methods
+    async getClassbookCollection({state}) {
+
+      let classbookProductsRef = fb.classbooksCollection;
+      try {
+        let allClassbookProductsSnapshot = await classbookProductsRef.get();
+        state.classbooksCollection = [];
+        allClassbookProductsSnapshot.forEach(doc => {
+          const singleClassbookProduct = doc.data();
+          singleClassbookProduct["id"] = doc.id;
+          state.classbooksCollection.push(singleClassbookProduct);
+          console.log(singleClassbookProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteClassbookProduct({state}, id) {
+      try {
+        await fb.classbooksCollection.doc(id).delete();
+        alert('Successfully deleted Classbook');
+      } catch(error) {
+        console.log(error);
+      }
+    },
+
+    async updateClassbookProduct({}, itemForUpdate) {
+      try {
+        await fb.classbooksCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Classbook was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createClassbookProduct({state}, payload) {
+      const classbookProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.classbooksCollection.add(classbookProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("classbookProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.classbooksCollection.doc(key).get();
+      await fb.classbooksCollection.doc(key).update({
+        src: imageUrl
+      });
+    },
+
+    // ! Ranches Products Methods
+    async getRanchesCollection({state}) {
+
+        let ranchesProductsRef = fb.ranchesCollection;
+        try {
+          let allRanchesProductsSnapshot = await ranchesProductsRef.get();
+          state.ranchesCollection = [];
+          allRanchesProductsSnapshot.forEach(doc => {
+            const singleRanchProduct = doc.data();
+            singleRanchProduct["id"] = doc.id;
+            state.ranchesCollection.push(singleRanchProduct);
+            console.log(singleRanchProduct);
+          })
+        } catch (error) {
+          console.log(error);
+        }
+
+      },
+
+    async deleteRanchesProduct({state}, id) {
+        try {
+          await fb.ranchesCollection.doc(id).delete();
+          alert('Successfully deleted Product');
+        } catch(error) {
+          console.log(error);
+        }
+      },
+
+    async updateRanchesProduct({}, itemForUpdate) {
+        try {
+          await fb.ranchesCollection.doc(itemForUpdate.id).update({
+            name: itemForUpdate.name,
+            price: itemForUpdate.price,
+            src: itemForUpdate.src
+          });
+          alert("Product was updated!");
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+    async createRanchesProduct({state}, payload) {
+        const ranchesProduct = {
+          name: payload.name,
+          price: payload.price,
+          userId: fb.auth.currentUser.uid,
+          userName: state.userProfile.email,
+          createdOn: new Date()
+        };
+        let imageUrl;
+        let key;
+        let storageRef = fb.storage;
+        const data = await fb.ranchesCollection.add(ranchesProduct);
+        key = data.id;
+        const fileName = payload.src.name;
+        const ext = fileName.slice(fileName.lastIndexOf("."));
+        const fileData = await storageRef
+          .child("ranchesProductImages/" + key + "." + ext)
+          .put(payload.src);
+        imageUrl = await fileData.ref.getDownloadURL();
+        await fb.ranchesCollection.doc(key).get();
+        await fb.ranchesCollection.doc(key).update({
+          src: imageUrl
+        });
+      },
+    // ! Gifts Products Methods
+    async getGiftCollection({state}) {
+
+      let giftProductsRef = fb.giftsCollection;
+      try {
+        let allGiftsProductsSnapshot = await giftProductsRef.get();
+        state.giftsCollection = [];
+        allGiftsProductsSnapshot.forEach(doc => {
+          const singleGiftProduct = doc.data();
+          singleGiftProduct["id"] = doc.id;
+          state.giftsCollection.push(singleGiftProduct);
+          console.log(singleGiftProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteGiftProduct({state}, id) {
+        try {
+          await fb.giftsCollection.doc(id).delete();
+          alert('Successfully deleted Product');
+        } catch(error) {
+          console.log(error);
+        }
+    },
+
+    async updateGiftProduct({}, itemForUpdate) {
+      try {
+        await fb.giftsCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Product was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createGiftProduct({state}, payload) {
+      const giftProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.giftsCollection.add(giftProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("giftProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.giftsCollection.doc(key).get();
+      await fb.giftsCollection.doc(key).update({
+        src: imageUrl
+      });
     }
+
 
   }
 });

@@ -4,7 +4,7 @@
       <input
         class="search-bar"
         v-model="filterText"
-        placeholder="Search for Products..."
+        placeholder="Search for Stationary..."
         type="text">
     </div>
     <div clas="all-products">

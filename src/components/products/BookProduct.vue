@@ -4,7 +4,7 @@
       <input
         class="search-bar"
         v-model="filterText"
-        placeholder="Search for Products..."
+        placeholder="Search for Books..."
         type="text">
     </div>
     <div clas="all-products">
@@ -128,7 +128,7 @@ export default {
     }
   },
   methods:{
-    
+
     onDeleteIcon(product) {
       this.itemForDelete = product;
       this.showDeleteModal = true;
