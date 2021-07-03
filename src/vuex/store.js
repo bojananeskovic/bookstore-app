@@ -146,6 +146,140 @@ export const store = new Vuex.Store({
       await fb.booksCollection.doc(key).update({
         src: imageUrl
       });
+    },
+
+    // ! Stationary Products Methods
+    // * Get All Stationaries Methods
+    async getStationaryCollection({state}) {
+
+      let stationaryProductsRef = fb.stationaryCollection;
+      try {
+        let allStationaryProductsSnapshot = await stationaryProductsRef.get();
+        state.stationaryCollection = [];
+        allStationaryProductsSnapshot.forEach(doc => {
+          const singleStationaryProduct = doc.data();
+          singleStationaryProduct["id"] = doc.id;
+          state.stationaryCollection.push(singleStationaryProduct);
+          console.log(singleStationaryProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteStationaryProduct({state}, id) {
+      try {
+        await fb.stationaryCollection.doc(id).delete();
+        alert('Successfully deleted Product');
+      } catch(error) {
+        console.log(error);
+      }
+    },
+
+    async updateStationaryProduct({}, itemForUpdate) {
+      try {
+        await fb.stationaryCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Stationary was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createStationaryProduct({state}, payload) {
+      const stationaryProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.stationaryCollection.add(stationaryProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("stationaryProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.stationaryCollection.doc(key).get();
+      await fb.stationaryCollection.doc(key).update({
+        src: imageUrl
+      });
+    },
+
+    // ! Office Supplies Products Methods
+    async getOfficeSuppliesCollection({state}) {
+
+      let officeSuppliesProductsRef = fb.officeSuppliesCollection;
+      try {
+        let allOfficeSuppliesProductsSnapshot = await officeSuppliesProductsRef.get();
+        state.officeSuppliesCollection = [];
+        allOfficeSuppliesProductsSnapshot.forEach(doc => {
+          const singleOfficeSuppliesProduct = doc.data();
+          singleOfficeSuppliesProduct["id"] = doc.id;
+          state.officeSuppliesCollection.push(singleOfficeSuppliesProduct);
+          console.log(singleOfficeSuppliesProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteOfficeSuppliesProduct({state}, id) {
+      try {
+        await fb.officeSuppliesCollection.doc(id).delete();
+        alert('Successfully deleted Product');
+      } catch(error) {
+        console.log(error);
+      }
+    },
+
+    async updateOfficeSuppliesProduct({}, itemForUpdate) {
+      try {
+        await fb.officeSuppliesCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Office Supplies was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createOfficeSuppliesProduct({state}, payload) {
+      const officeSuppliesProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.officeSuppliesCollection.add(officeSuppliesProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("officeSuppliesProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.officeSuppliesCollection.doc(key).get();
+      await fb.officeSuppliesCollection.doc(key).update({
+        src: imageUrl
+      });
     }
+
   }
 });
