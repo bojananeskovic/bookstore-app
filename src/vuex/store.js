@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     boardGamesCollection: [],
     artCollection: []
   },
-  mutations:{
+  mutations: {
     setUserProfile(state, val) {
       state.userProfile = val;
       state.userProfile['id'] = fb.auth.currentUser.uid;
@@ -27,10 +27,10 @@ export const store = new Vuex.Store({
   },
   actions: {
 
-    async login({dispatch}, form) {
+    async login({ dispatch }, form) {
 
       // loginovanje korisnika
-      const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password);
+      const { user } = await fb.auth.signInWithEmailAndPassword(form.email, form.password);
 
       // vracanje korisnika i setovanje u state-u
       dispatch('fetchUserProfile', user);
@@ -39,7 +39,7 @@ export const store = new Vuex.Store({
 
     },
 
-    async logout({state, commit}) {
+    async logout({ state, commit }) {
 
       // odjavimo korisnika sa fb
       await fb.auth.signOut();
@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
 
     },
 
-    async fetchUserProfile({commit}, user) {
+    async fetchUserProfile({ commit }, user) {
 
       // vracanje korisnika sa fb
       const userProfile = await fb.usersCollection.doc(user.uid).get();
@@ -61,10 +61,10 @@ export const store = new Vuex.Store({
 
     },
 
-    async register({dispatch}, form) {
+    async register({ dispatch }, form) {
 
       // registrovanje user-a
-      const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password);
+      const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password);
 
       // kreiranje korisnika u usersCollection na firebase-u
       await fb.usersCollection.doc(user.uid).set({
@@ -83,7 +83,7 @@ export const store = new Vuex.Store({
 
     // ! Book Products Methods
     // * Get All Books Methods
-    async getBookCollection({state}) {
+    async getBookCollection({ state }) {
 
       let bookProductsRef = fb.booksCollection;
       try {
@@ -101,16 +101,16 @@ export const store = new Vuex.Store({
 
     },
 
-    async deleteBookProduct({state}, id) {
+    async deleteBookProduct({ state }, id) {
       try {
         await fb.booksCollection.doc(id).delete();
         alert('Successfully deleted Product');
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     },
 
-    async updateBookProduct({}, itemForUpdate) {
+    async updateBookProduct({ }, itemForUpdate) {
       try {
         await fb.booksCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
@@ -123,7 +123,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    async createBookProduct({state}, payload) {
+    async createBookProduct({ state }, payload) {
       const bookProduct = {
         name: payload.name,
         price: payload.price,
@@ -150,7 +150,7 @@ export const store = new Vuex.Store({
 
     // ! Stationary Products Methods
     // * Get All Stationaries Methods
-    async getStationaryCollection({state}) {
+    async getStationaryCollection({ state }) {
 
       let stationaryProductsRef = fb.stationaryCollection;
       try {
@@ -168,16 +168,16 @@ export const store = new Vuex.Store({
 
     },
 
-    async deleteStationaryProduct({state}, id) {
+    async deleteStationaryProduct({ state }, id) {
       try {
         await fb.stationaryCollection.doc(id).delete();
         alert('Successfully deleted Product');
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     },
 
-    async updateStationaryProduct({}, itemForUpdate) {
+    async updateStationaryProduct({ }, itemForUpdate) {
       try {
         await fb.stationaryCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
@@ -190,7 +190,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    async createStationaryProduct({state}, payload) {
+    async createStationaryProduct({ state }, payload) {
       const stationaryProduct = {
         name: payload.name,
         price: payload.price,
@@ -216,7 +216,7 @@ export const store = new Vuex.Store({
     },
 
     // ! Office Supplies Products Methods
-    async getOfficeSuppliesCollection({state}) {
+    async getOfficeSuppliesCollection({ state }) {
 
       let officeSuppliesProductsRef = fb.officeSuppliesCollection;
       try {
@@ -234,16 +234,16 @@ export const store = new Vuex.Store({
 
     },
 
-    async deleteOfficeSuppliesProduct({state}, id) {
+    async deleteOfficeSuppliesProduct({ state }, id) {
       try {
         await fb.officeSuppliesCollection.doc(id).delete();
         alert('Successfully deleted Product');
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     },
 
-    async updateOfficeSuppliesProduct({}, itemForUpdate) {
+    async updateOfficeSuppliesProduct({ }, itemForUpdate) {
       try {
         await fb.officeSuppliesCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
@@ -256,7 +256,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    async createOfficeSuppliesProduct({state}, payload) {
+    async createOfficeSuppliesProduct({ state }, payload) {
       const officeSuppliesProduct = {
         name: payload.name,
         price: payload.price,
@@ -282,7 +282,7 @@ export const store = new Vuex.Store({
     },
 
     // ! Classbook Products Methods
-    async getClassbookCollection({state}) {
+    async getClassbookCollection({ state }) {
 
       let classbookProductsRef = fb.classbooksCollection;
       try {
@@ -300,16 +300,16 @@ export const store = new Vuex.Store({
 
     },
 
-    async deleteClassbookProduct({state}, id) {
+    async deleteClassbookProduct({ state }, id) {
       try {
         await fb.classbooksCollection.doc(id).delete();
         alert('Successfully deleted Classbook');
-      } catch(error) {
+      } catch (error) {
         console.log(error);
       }
     },
 
-    async updateClassbookProduct({}, itemForUpdate) {
+    async updateClassbookProduct({ }, itemForUpdate) {
       try {
         await fb.classbooksCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
@@ -322,7 +322,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    async createClassbookProduct({state}, payload) {
+    async createClassbookProduct({ state }, payload) {
       const classbookProduct = {
         name: payload.name,
         price: payload.price,
@@ -348,72 +348,72 @@ export const store = new Vuex.Store({
     },
 
     // ! Ranches Products Methods
-    async getRanchesCollection({state}) {
+    async getRanchesCollection({ state }) {
 
-        let ranchesProductsRef = fb.ranchesCollection;
-        try {
-          let allRanchesProductsSnapshot = await ranchesProductsRef.get();
-          state.ranchesCollection = [];
-          allRanchesProductsSnapshot.forEach(doc => {
-            const singleRanchProduct = doc.data();
-            singleRanchProduct["id"] = doc.id;
-            state.ranchesCollection.push(singleRanchProduct);
-            console.log(singleRanchProduct);
-          })
-        } catch (error) {
-          console.log(error);
-        }
+      let ranchesProductsRef = fb.ranchesCollection;
+      try {
+        let allRanchesProductsSnapshot = await ranchesProductsRef.get();
+        state.ranchesCollection = [];
+        allRanchesProductsSnapshot.forEach(doc => {
+          const singleRanchProduct = doc.data();
+          singleRanchProduct["id"] = doc.id;
+          state.ranchesCollection.push(singleRanchProduct);
+          console.log(singleRanchProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
 
-      },
+    },
 
-    async deleteRanchesProduct({state}, id) {
-        try {
-          await fb.ranchesCollection.doc(id).delete();
-          alert('Successfully deleted Product');
-        } catch(error) {
-          console.log(error);
-        }
-      },
+    async deleteRanchesProduct({ state }, id) {
+      try {
+        await fb.ranchesCollection.doc(id).delete();
+        alert('Successfully deleted Product');
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
-    async updateRanchesProduct({}, itemForUpdate) {
-        try {
-          await fb.ranchesCollection.doc(itemForUpdate.id).update({
-            name: itemForUpdate.name,
-            price: itemForUpdate.price,
-            src: itemForUpdate.src
-          });
-          alert("Product was updated!");
-        } catch (error) {
-          console.log(error);
-        }
-      },
-
-    async createRanchesProduct({state}, payload) {
-        const ranchesProduct = {
-          name: payload.name,
-          price: payload.price,
-          userId: fb.auth.currentUser.uid,
-          userName: state.userProfile.email,
-          createdOn: new Date()
-        };
-        let imageUrl;
-        let key;
-        let storageRef = fb.storage;
-        const data = await fb.ranchesCollection.add(ranchesProduct);
-        key = data.id;
-        const fileName = payload.src.name;
-        const ext = fileName.slice(fileName.lastIndexOf("."));
-        const fileData = await storageRef
-          .child("ranchesProductImages/" + key + "." + ext)
-          .put(payload.src);
-        imageUrl = await fileData.ref.getDownloadURL();
-        await fb.ranchesCollection.doc(key).get();
-        await fb.ranchesCollection.doc(key).update({
-          src: imageUrl
+    async updateRanchesProduct({ }, itemForUpdate) {
+      try {
+        await fb.ranchesCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
         });
-      },
+        alert("Product was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createRanchesProduct({ state }, payload) {
+      const ranchesProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.ranchesCollection.add(ranchesProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("ranchesProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.ranchesCollection.doc(key).get();
+      await fb.ranchesCollection.doc(key).update({
+        src: imageUrl
+      });
+    },
     // ! Gifts Products Methods
-    async getGiftCollection({state}) {
+    async getGiftCollection({ state }) {
 
       let giftProductsRef = fb.giftsCollection;
       try {
@@ -431,16 +431,16 @@ export const store = new Vuex.Store({
 
     },
 
-    async deleteGiftProduct({state}, id) {
-        try {
-          await fb.giftsCollection.doc(id).delete();
-          alert('Successfully deleted Product');
-        } catch(error) {
-          console.log(error);
-        }
+    async deleteGiftProduct({ state }, id) {
+      try {
+        await fb.giftsCollection.doc(id).delete();
+        alert('Successfully deleted Product');
+      } catch (error) {
+        console.log(error);
+      }
     },
 
-    async updateGiftProduct({}, itemForUpdate) {
+    async updateGiftProduct({ }, itemForUpdate) {
       try {
         await fb.giftsCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
@@ -453,7 +453,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    async createGiftProduct({state}, payload) {
+    async createGiftProduct({ state }, payload) {
       const giftProduct = {
         name: payload.name,
         price: payload.price,
@@ -476,8 +476,139 @@ export const store = new Vuex.Store({
       await fb.giftsCollection.doc(key).update({
         src: imageUrl
       });
-    }
+    },
 
+    // ! Board Games Products Methods
+    async getBoardGamesCollection({ state }) {
+
+      let boardGamesProductsRef = fb.boardGamesCollection;
+      try {
+        let allBoardGamesProductsSnapshot = await boardGamesProductsRef.get();
+        state.boardGamesCollection = [];
+        allBoardGamesProductsSnapshot.forEach(doc => {
+          const singleBoardGameProduct = doc.data();
+          singleBoardGameProduct["id"] = doc.id;
+          state.boardGamesCollection.push(singleBoardGameProduct);
+          console.log(singleBoardGameProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteBoardGamesProduct({ state }, id) {
+      try {
+        await fb.boardGamesCollection.doc(id).delete();
+        alert('Successfully deleted Board Game');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async updateBoardGamesProduct({ }, itemForUpdate) {
+      try {
+        await fb.boardGamesCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Board Game was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createBoardGamesProduct({ state }, payload) {
+      const boardGamesProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.boardGamesCollection.add(boardGamesProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("boardGamesProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.boardGamesCollection.doc(key).get();
+      await fb.boardGamesCollection.doc(key).update({
+        src: imageUrl
+      });
+    },
+
+    // ! Art Products Methods
+    async getArtCollection({ state }) {
+
+      let artProductsRef = fb.artCollection;
+      try {
+        let allArtProductsSnapshot = await artProductsRef.get();
+        state.artCollection = [];
+        allArtProductsSnapshot.forEach(doc => {
+          const singleArtProduct = doc.data();
+          singleArtProduct["id"] = doc.id;
+          state.artCollection.push(singleArtProduct);
+          console.log(singleArtProduct);
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
+    },
+
+    async deleteArtProduct({ state }, id) {
+      try {
+        await fb.artCollection.doc(id).delete();
+        alert('Successfully deleted Art');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async updateArtProduct({ }, itemForUpdate) {
+      try {
+        await fb.artCollection.doc(itemForUpdate.id).update({
+          name: itemForUpdate.name,
+          price: itemForUpdate.price,
+          src: itemForUpdate.src
+        });
+        alert("Art was updated!");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async createArtProduct({ state }, payload) {
+      const artProduct = {
+        name: payload.name,
+        price: payload.price,
+        userId: fb.auth.currentUser.uid,
+        userName: state.userProfile.email,
+        createdOn: new Date()
+      };
+      let imageUrl;
+      let key;
+      let storageRef = fb.storage;
+      const data = await fb.artCollection.add(artProduct);
+      key = data.id;
+      const fileName = payload.src.name;
+      const ext = fileName.slice(fileName.lastIndexOf("."));
+      const fileData = await storageRef
+        .child("artProductImages/" + key + "." + ext)
+        .put(payload.src);
+      imageUrl = await fileData.ref.getDownloadURL();
+      await fb.artCollection.doc(key).get();
+      await fb.artCollection.doc(key).update({
+        src: imageUrl
+      });
+    }
 
   }
 });
