@@ -107,6 +107,8 @@ import UpdateRanchesProductDialog from '../dialogs/ranchesProducts-dialogs/Updat
 import AddRanchesProductDialog from '../dialogs/ranchesProducts-dialogs/AddRanchesProductDialog.vue';
 import InfoRanchesProductDialog from '../dialogs/ranchesProducts-dialogs/InfoRanchesProductDialog.vue';
 import { mapState } from "vuex";
+import { userMixin } from "../../mixins/userMixin";
+import { productMixin } from "../../mixins/productMixin";
 export default {
    components: {
     'app-delete-ranches-product-dialog': DeleteRanchesProductDialog,
@@ -114,38 +116,42 @@ export default {
     'app-add-ranches-product-dialog': AddRanchesProductDialog,
     'app-info-ranches-product-dialog': InfoRanchesProductDialog
   },
-  data() {
-    return {
-      filterText: "",
-      itemForDelete: {},
-      itemForInfo: {},
-      itemForUpdate: {},
-      showDeleteModal: false,
-      showInfoModal: false,
-      showUpdateModal: false,
-      showAddModal: false,
-      copyOfItemForUpdate: {}
-    }
-  },
-  methods:{
+  mixins: [
+    userMixin,
+    productMixin
+  ],
+  // data() {
+  //   return {
+  //     filterText: "",
+  //     itemForDelete: {},
+  //     itemForInfo: {},
+  //     itemForUpdate: {},
+  //     showDeleteModal: false,
+  //     showInfoModal: false,
+  //     showUpdateModal: false,
+  //     showAddModal: false,
+  //     copyOfItemForUpdate: {}
+  //   }
+  // },
+  // methods:{
 
-    onDeleteIcon(product) {
-      this.itemForDelete = product;
-      this.showDeleteModal = true;
-    },
-    onUpdateIcon(product) {
-      this.itemForUpdate = product;
-      this.showUpdateModal = true;
-      this.copyOfItemForUpdate = Object.assign({}, product);
-    },
-    onAddIcon() {
-      this.showAddModal = true;
-    },
-    showInfo(product) {
-      this.itemForInfo = product;
-      this.showInfoModal = true;
-    }
-  },
+  //   onDeleteIcon(product) {
+  //     this.itemForDelete = product;
+  //     this.showDeleteModal = true;
+  //   },
+  //   onUpdateIcon(product) {
+  //     this.itemForUpdate = product;
+  //     this.showUpdateModal = true;
+  //     this.copyOfItemForUpdate = Object.assign({}, product);
+  //   },
+  //   onAddIcon() {
+  //     this.showAddModal = true;
+  //   },
+  //   showInfo(product) {
+  //     this.itemForInfo = product;
+  //     this.showInfoModal = true;
+  //   }
+  // },
   computed: {
     ...mapState(["ranchesCollection"]),
       filteredRanches() {

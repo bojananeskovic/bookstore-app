@@ -107,44 +107,14 @@ import UpdateBookProductDialog from '../dialogs/bookProducts-dialogs/UpdateBookP
 import AddBookProductDialog from '../dialogs/bookProducts-dialogs/AddBookProductDialog.vue';
 import InfoBookProductDialog from '../dialogs/bookProducts-dialogs/InfoBookProductDialog.vue';
 import { mapState } from "vuex";
+import { userMixin } from "../../mixins/userMixin";
+import { productMixin } from "../../mixins/productMixin";
 export default {
    components: {
     'app-delete-book-product-dialog': DeleteBookProductDialog,
     'app-update-book-product-dialog': UpdateBookProductDialog,
     'app-add-book-product-dialog': AddBookProductDialog,
     'app-info-book-product-dialog': InfoBookProductDialog
-  },
-  data() {
-    return {
-      filterText: "",
-      itemForDelete: {},
-      itemForInfo: {},
-      itemForUpdate: {},
-      showDeleteModal: false,
-      showInfoModal: false,
-      showUpdateModal: false,
-      showAddModal: false,
-      copyOfItemForUpdate: {}
-    }
-  },
-  methods:{
-
-    onDeleteIcon(product) {
-      this.itemForDelete = product;
-      this.showDeleteModal = true;
-    },
-    onUpdateIcon(product) {
-      this.itemForUpdate = product;
-      this.showUpdateModal = true;
-      this.copyOfItemForUpdate = Object.assign({}, product);
-    },
-    onAddIcon() {
-      this.showAddModal = true;
-    },
-    showInfo(product) {
-      this.itemForInfo = product;
-      this.showInfoModal = true;
-    }
   },
   computed: {
     ...mapState(["booksCollection"]),
@@ -155,6 +125,10 @@ export default {
       })
       },
   },
+  mixins: [
+    userMixin,
+    productMixin
+  ],
    mounted() {
     this.$store.dispatch("getBookCollection");
   },

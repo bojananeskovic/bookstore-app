@@ -107,6 +107,8 @@ import UpdateArtProductDialog from '../dialogs/artProducts-dialogs/UpdateArtProd
 import AddArtProductDialog from '../dialogs/artProducts-dialogs/AddArtProductDialog.vue';
 import InfoArtProductDialog from '../dialogs/artProducts-dialogs/InfoArtProductDialog.vue';
 import { mapState } from "vuex";
+import { userMixin } from "../../mixins/userMixin";
+import { productMixin } from "../../mixins/productMixin";
 export default {
    components: {
     'app-delete-art-product-dialog': DeleteArtProductDialog,
@@ -114,38 +116,42 @@ export default {
     'app-add-art-product-dialog': AddArtProductDialog,
     'app-info-art-product-dialog': InfoArtProductDialog
   },
-  data() {
-    return {
-      filterText: "",
-      itemForDelete: {},
-      itemForInfo: {},
-      itemForUpdate: {},
-      showDeleteModal: false,
-      showInfoModal: false,
-      showUpdateModal: false,
-      showAddModal: false,
-      copyOfItemForUpdate: {}
-    }
-  },
-  methods:{
+   mixins: [
+    userMixin,
+    productMixin
+  ],
+  // data() {
+  //   return {
+  //     filterText: "",
+  //     itemForDelete: {},
+  //     itemForInfo: {},
+  //     itemForUpdate: {},
+  //     showDeleteModal: false,
+  //     showInfoModal: false,
+  //     showUpdateModal: false,
+  //     showAddModal: false,
+  //     copyOfItemForUpdate: {}
+  //   }
+  // },
+  // methods:{
 
-    onDeleteIcon(product) {
-      this.itemForDelete = product;
-      this.showDeleteModal = true;
-    },
-    onUpdateIcon(product) {
-      this.itemForUpdate = product;
-      this.showUpdateModal = true;
-      this.copyOfItemForUpdate = Object.assign({}, product);
-    },
-    onAddIcon() {
-      this.showAddModal = true;
-    },
-    showInfo(product) {
-      this.itemForInfo = product;
-      this.showInfoModal = true;
-    }
-  },
+  //   onDeleteIcon(product) {
+  //     this.itemForDelete = product;
+  //     this.showDeleteModal = true;
+  //   },
+  //   onUpdateIcon(product) {
+  //     this.itemForUpdate = product;
+  //     this.showUpdateModal = true;
+  //     this.copyOfItemForUpdate = Object.assign({}, product);
+  //   },
+  //   onAddIcon() {
+  //     this.showAddModal = true;
+  //   },
+  //   showInfo(product) {
+  //     this.itemForInfo = product;
+  //     this.showInfoModal = true;
+  //   }
+  // },
   computed: {
     ...mapState(["artCollection"]),
       filteredArt() {

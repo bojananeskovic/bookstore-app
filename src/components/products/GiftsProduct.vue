@@ -107,6 +107,8 @@ import UpdateGiftProductDialog from '../dialogs/giftProducts-dialogs/UpdateGiftP
 import AddGiftProductDialog from '../dialogs/giftProducts-dialogs/AddGiftProductDialog.vue';
 import InfoGiftProductDialog from '../dialogs/giftProducts-dialogs/InfoGiftProductDialog.vue';
 import { mapState } from "vuex";
+import { userMixin } from "../../mixins/userMixin";
+import { productMixin } from "../../mixins/productMixin";
 export default {
    components: {
     'app-delete-gift-product-dialog': DeleteGiftProductDialog,
@@ -114,38 +116,42 @@ export default {
     'app-add-gift-product-dialog': AddGiftProductDialog,
     'app-info-gift-product-dialog': InfoGiftProductDialog
   },
-  data() {
-    return {
-      filterText: "",
-      itemForDelete: {},
-      itemForInfo: {},
-      itemForUpdate: {},
-      showDeleteModal: false,
-      showInfoModal: false,
-      showUpdateModal: false,
-      showAddModal: false,
-      copyOfItemForUpdate: {}
-    }
-  },
-  methods:{
+    mixins: [
+    userMixin,
+    productMixin
+  ],
+  // data() {
+  //   return {
+  //     filterText: "",
+  //     itemForDelete: {},
+  //     itemForInfo: {},
+  //     itemForUpdate: {},
+  //     showDeleteModal: false,
+  //     showInfoModal: false,
+  //     showUpdateModal: false,
+  //     showAddModal: false,
+  //     copyOfItemForUpdate: {}
+  //   }
+  // },
+  // methods:{
 
-    onDeleteIcon(product) {
-      this.itemForDelete = product;
-      this.showDeleteModal = true;
-    },
-    onUpdateIcon(product) {
-      this.itemForUpdate = product;
-      this.showUpdateModal = true;
-      this.copyOfItemForUpdate = Object.assign({}, product);
-    },
-    onAddIcon() {
-      this.showAddModal = true;
-    },
-    showInfo(product) {
-      this.itemForInfo = product;
-      this.showInfoModal = true;
-    }
-  },
+  //   onDeleteIcon(product) {
+  //     this.itemForDelete = product;
+  //     this.showDeleteModal = true;
+  //   },
+  //   onUpdateIcon(product) {
+  //     this.itemForUpdate = product;
+  //     this.showUpdateModal = true;
+  //     this.copyOfItemForUpdate = Object.assign({}, product);
+  //   },
+  //   onAddIcon() {
+  //     this.showAddModal = true;
+  //   },
+  //   showInfo(product) {
+  //     this.itemForInfo = product;
+  //     this.showInfoModal = true;
+  //   }
+  // },
   computed: {
     ...mapState(["giftsCollection"]),
       filteredGifts() {

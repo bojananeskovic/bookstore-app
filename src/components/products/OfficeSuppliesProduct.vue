@@ -107,6 +107,8 @@ import UpdateOfficeSuppliesProductDialog from '../dialogs/officeSuppliesProducts
 import AddOfficeSuppliesProductDialog from '../dialogs/officeSuppliesProducts-dialogs/AddOfficeSuppliesProductDialog.vue';
 import InfoOfficeSuppliesProductDialog from '../dialogs/officeSuppliesProducts-dialogs/InfoOfficeSuppliesProductDialog.vue';
 import { mapState } from "vuex";
+import { userMixin } from "../../mixins/userMixin";
+import { productMixin } from "../../mixins/productMixin";
 export default {
    components: {
     'app-delete-officeSupplies-product-dialog': DeleteOfficeSuppliesProductDialog,
@@ -114,38 +116,42 @@ export default {
     'app-add-officeSupplies-product-dialog': AddOfficeSuppliesProductDialog,
     'app-info-officeSupplies-product-dialog': InfoOfficeSuppliesProductDialog
   },
-  data() {
-    return {
-      filterText: "",
-      itemForDelete: {},
-      itemForInfo: {},
-      itemForUpdate: {},
-      showDeleteModal: false,
-      showInfoModal: false,
-      showUpdateModal: false,
-      showAddModal: false,
-      copyOfItemForUpdate: {}
-    }
-  },
-  methods:{
+  mixins: [
+    userMixin,
+    productMixin
+  ],
+  // data() {
+  //   return {
+  //     filterText: "",
+  //     itemForDelete: {},
+  //     itemForInfo: {},
+  //     itemForUpdate: {},
+  //     showDeleteModal: false,
+  //     showInfoModal: false,
+  //     showUpdateModal: false,
+  //     showAddModal: false,
+  //     copyOfItemForUpdate: {}
+  //   }
+  // },
+  // methods:{
 
-    onDeleteIcon(product) {
-      this.itemForDelete = product;
-      this.showDeleteModal = true;
-    },
-    onUpdateIcon(product) {
-      this.itemForUpdate = product;
-      this.showUpdateModal = true;
-      this.copyOfItemForUpdate = Object.assign({}, product);
-    },
-    onAddIcon() {
-      this.showAddModal = true;
-    },
-    showInfo(product) {
-      this.itemForInfo = product;
-      this.showInfoModal = true;
-    }
-  },
+  //   onDeleteIcon(product) {
+  //     this.itemForDelete = product;
+  //     this.showDeleteModal = true;
+  //   },
+  //   onUpdateIcon(product) {
+  //     this.itemForUpdate = product;
+  //     this.showUpdateModal = true;
+  //     this.copyOfItemForUpdate = Object.assign({}, product);
+  //   },
+  //   onAddIcon() {
+  //     this.showAddModal = true;
+  //   },
+  //   showInfo(product) {
+  //     this.itemForInfo = product;
+  //     this.showInfoModal = true;
+  //   }
+  // },
   computed: {
     ...mapState(["officeSuppliesCollection"]),
       filteredOfficeSupplies() {

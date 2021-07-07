@@ -107,6 +107,8 @@ import UpdateStationaryProductDialog from '../dialogs/stationaryProducts-dialogs
 import AddStationaryProductDialog from '../dialogs/stationaryProducts-dialogs/AddStationaryProductDialog.vue';
 import InfoStationaryProductDialog from '../dialogs/stationaryProducts-dialogs/InfoStationaryProductDialog.vue';
 import { mapState } from "vuex";
+import { userMixin } from "../../mixins/userMixin";
+import { productMixin } from "../../mixins/productMixin";
 export default {
    components: {
     'app-delete-stationary-product-dialog': DeleteStationaryProductDialog,
@@ -114,38 +116,42 @@ export default {
     'app-add-stationary-product-dialog': AddStationaryProductDialog,
     'app-info-stationary-product-dialog': InfoStationaryProductDialog
   },
-  data() {
-    return {
-      filterText: "",
-      itemForDelete: {},
-      itemForInfo: {},
-      itemForUpdate: {},
-      showDeleteModal: false,
-      showInfoModal: false,
-      showUpdateModal: false,
-      showAddModal: false,
-      copyOfItemForUpdate: {}
-    }
-  },
-  methods:{
+  mixins: [
+    userMixin,
+    productMixin
+  ],
+  // data() {
+  //   return {
+  //     filterText: "",
+  //     itemForDelete: {},
+  //     itemForInfo: {},
+  //     itemForUpdate: {},
+  //     showDeleteModal: false,
+  //     showInfoModal: false,
+  //     showUpdateModal: false,
+  //     showAddModal: false,
+  //     copyOfItemForUpdate: {}
+  //   }
+  // },
+  // methods:{
 
-    onDeleteIcon(product) {
-      this.itemForDelete = product;
-      this.showDeleteModal = true;
-    },
-    onUpdateIcon(product) {
-      this.itemForUpdate = product;
-      this.showUpdateModal = true;
-      this.copyOfItemForUpdate = Object.assign({}, product);
-    },
-    onAddIcon() {
-      this.showAddModal = true;
-    },
-    showInfo(product) {
-      this.itemForInfo = product;
-      this.showInfoModal = true;
-    }
-  },
+  //   onDeleteIcon(product) {
+  //     this.itemForDelete = product;
+  //     this.showDeleteModal = true;
+  //   },
+  //   onUpdateIcon(product) {
+  //     this.itemForUpdate = product;
+  //     this.showUpdateModal = true;
+  //     this.copyOfItemForUpdate = Object.assign({}, product);
+  //   },
+  //   onAddIcon() {
+  //     this.showAddModal = true;
+  //   },
+  //   showInfo(product) {
+  //     this.itemForInfo = product;
+  //     this.showInfoModal = true;
+  //   }
+  // },
   computed: {
     ...mapState(["stationaryCollection"]),
       filteredStationary() {
