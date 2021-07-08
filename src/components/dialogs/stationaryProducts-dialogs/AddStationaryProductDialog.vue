@@ -21,6 +21,13 @@
         style="display:none"
         accept="image/*"
         @change="onFilePicked">
+        <h3 class="modal-content-name">Stationary description:</h3>
+        <textarea placeholder="Enter Stationary Description"
+        class="modal__product__price-textarea"
+        name="desc"
+        id="desc"
+        :maxlength="200"
+        v-model="productAdded.desc"/>
         <h3 class="modal-content-name">Stationary price:</h3>
         <textarea placeholder="Enter Stationary Price"
         class="modal__product__price-textarea"
@@ -44,6 +51,7 @@ export default {
       productAdded: {
         name: "",
         src: "",
+        desc:"",
         price: "",
       },
     };
@@ -76,7 +84,8 @@ export default {
       const stationaryProduct = {
         name: this.productAdded.name,
         src: this.previewImage,
-        price: this.productAdded.price
+        price: this.productAdded.price,
+        desc: this.productAdded.desc
       }
       await this.$store.dispatch('createStationaryProduct', stationaryProduct);
       this.$store.dispatch('getStationaryCollection');

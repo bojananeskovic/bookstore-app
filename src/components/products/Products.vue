@@ -1,6 +1,6 @@
 <template>
   <div class="products-wrapper">
-    <div class="products-title">
+    <div class="products-title" >
       <h1>Select product category to see all products</h1>
     </div>
     <div class="single-products">
@@ -91,16 +91,16 @@ export default {
     background: rgb(243, 233, 206);
     display: flex;
     flex-direction: column;
-  } 
+  }
 .products-title {
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Copperplate', fantasy;
     font-size: 35px;
-    font-weight: bold;
     align-self: center;
     padding-top: 40px;
     padding-bottom: 10px;
     margin-bottom: 15px;
-  } 
+    color: rgb(223, 156, 130);
+  }
 .single-products {
     width: 100%;
     height: 100%;
@@ -131,8 +131,7 @@ export default {
     opacity: 0.85;
   }
 .single-product-title {
-    font-family: 'Indie Flower', cursive;
-    font-weight: bold;
+    font-family: 'Copperplate', fantasy;
     color: white;
     text-shadow: 2px 2px black;
   }

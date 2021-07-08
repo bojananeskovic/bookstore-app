@@ -21,6 +21,13 @@
         style="display:none"
         accept="image/*"
         @change="onFilePicked">
+        <h3 class="modal-content-name">Book description:</h3>
+        <textarea placeholder="Enter Book Description"
+        class="modal__product__price-textarea"
+        name="desc"
+        id="desc"
+        :maxlength="200"
+        v-model="productAdded.desc"/>
         <h3 class="modal-content-name">Book price:</h3>
         <textarea placeholder="Enter Book Price"
         class="modal__product__price-textarea"
@@ -43,6 +50,7 @@ export default {
       previewImage: null,
       productAdded: {
         name: "",
+        desc:"",
         src: "",
         price: "",
       },
@@ -76,7 +84,8 @@ export default {
       const bookProduct = {
         name: this.productAdded.name,
         src: this.previewImage,
-        price: this.productAdded.price
+        price: this.productAdded.price,
+        desc: this.productAdded.desc
       }
       await this.$store.dispatch('createBookProduct', bookProduct);
       this.$store.dispatch('getBookCollection');

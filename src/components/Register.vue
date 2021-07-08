@@ -1,5 +1,6 @@
 <template>
   <div class="register-page-wrapper">
+     <img src="../assets/user-256.png" style="padding:20px">
     <b-form class="register-form" @submit="onSubmit" @reset="onReset" v-if="showForm">
       <b-form-group id="input-group-3" label="Your Name:" label-for="input-3">
         <b-form-input
@@ -10,7 +11,7 @@
           required
         ></b-form-input>
       </b-form-group>
-
+<br>
        <b-form-group id="input-group-4" label="Your last Name:" label-for="input-4">
         <b-form-input
           id="input-4"
@@ -20,12 +21,11 @@
           required
         ></b-form-input>
       </b-form-group>
-
+<br>
       <b-form-group
         id="input-group-1"
         label="Email address:"
         label-for="input-1"
-        description="We'll never share your email with anyone else."
       >
         <b-form-input
           id="input-1"
@@ -35,7 +35,7 @@
           required
         ></b-form-input>
       </b-form-group>
-
+<br>
       <b-form-group id="input-group-2" label="Your Password:" label-for="input-2">
         <b-form-input
           id="input-2"
@@ -45,9 +45,9 @@
           required
         ></b-form-input>
       </b-form-group>
+<br>
+      <b-button type="submit" variant="warning" style="background-color:rgb(223, 156, 130); border-color:rgb(223, 156, 130);margin-left: 60px">Submit</b-button>
 
-      <b-button type="submit" variant="warning">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
@@ -101,12 +101,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 91vh;
-    width: 100%;
-    background: rgb(243, 233, 206);
+    margin-left: 550px;
+    margin-top: 30px;
+    height: 800px;
+    width: 400px;
+    background: rgb(241, 193, 173);
+
   }
   .register-form {
-    font-family: 'Indie Flower', cursive;
+    font-family: "Verdana", Sans-serif;
     margin-top: 50px;
   }
   #input-1,

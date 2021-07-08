@@ -51,15 +51,18 @@
 
 <style scoped>
   * {
-    font-family: 'Indie Flower', cursive;
-    font-size: 30px;
-    font-weight: bold;
+    font-family: 'Copperplate', fantasy;
+    font-size: 20px;
+    padding-left: 5px;
+
+
   }
   .navbar {
-    background: rgb(184, 170, 91);
+    background: rgb(223, 156, 130);
   }
   .navbar-title {
-    color: rgb(54, 54, 54);
+    color: rgb(189, 130, 106);
+    font-size: 30px;
   }
   .navbar-collapse {
     color: rgb(54, 54, 54);

@@ -1,5 +1,9 @@
 <template>
   <div class="login-page-wrapper">
+
+   <img src="../assets/user-256.png" style="padding:20px">
+
+
     <b-form
       class="login-form"
       @submit="onSubmit"
@@ -10,8 +14,8 @@
         id="input-group-1"
         label="Email address:"
         label-for="input-1"
-        description="We'll never share your email with anyone else."
       >
+
         <b-form-input
           id="input-1"
           v-model="form.email"
@@ -20,7 +24,7 @@
           required
         ></b-form-input>
       </b-form-group>
-
+<br>
       <b-form-group
         id="input-group-2"
         label="Your Password:"
@@ -30,20 +34,20 @@
           id="input-2"
           type="password"
           v-model="form.password"
-          placeholder="Enter your Password"
+          placeholder="Enter your password"
           required
         ></b-form-input>
       </b-form-group>
-
-      <h4 class="sign-up-title">
+<br>
+      <p class="sign-up-title">
         <router-link class="sign-up-link" to="/register">
           Still don't have an account?
           <br />
           Sign up.
         </router-link>
-      </h4>
-      <div class="action-btns mt-4">
-        <b-button type="submit" variant="warning">Submit</b-button>
+      </p>
+      <div class="action-btns mt-4" style="margin-left: 60px">
+        <b-button type="submit" variant="success" style="background-color:rgb(223, 156, 130); border-color:rgb(223, 156, 130)">Submit</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
       </div>
     </b-form>
@@ -52,6 +56,7 @@
     </b-card> -->
   </div>
 </template>
+
 
 <script>
 export default {
@@ -93,12 +98,15 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 91vh;
-    width: 100%;
-    background: rgb(243, 233, 206);
+    margin-left: 550px;
+    margin-top: 30px;
+    height: 700px;
+    width: 400px;
+    background: rgb(241, 193, 173);
+
   }
   .login-form {
-    font-family: "Indie Flower", cursive;
+    font-family: "Verdana", Sans-serif;
     margin-top: 50px;
   }
   #input-1,
@@ -110,8 +118,14 @@ export default {
     font-weight: 15px;
   }
   .sign-up-link {
-    font-family: "Indie Flower", cursive;
+    font-family: "Verdana", Sans-serif;
     font-weight: bold;
-    color: rgb(54, 54, 54) !important;
+     font-size: 15px;
+    color: rgb(223, 156, 130) !important;
+  }
+  p {
+    font-size: 15px;
+    text-align: left;
+    color: white;
   }
 </style>

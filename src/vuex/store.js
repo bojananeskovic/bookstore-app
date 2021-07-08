@@ -115,7 +115,8 @@ export const store = new Vuex.Store({
         await fb.booksCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Book was updated!");
       } catch (error) {
@@ -127,6 +128,7 @@ export const store = new Vuex.Store({
       const bookProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -182,7 +184,8 @@ export const store = new Vuex.Store({
         await fb.stationaryCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Stationary was updated!");
       } catch (error) {
@@ -194,6 +197,7 @@ export const store = new Vuex.Store({
       const stationaryProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -248,7 +252,8 @@ export const store = new Vuex.Store({
         await fb.officeSuppliesCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Office Supplies was updated!");
       } catch (error) {
@@ -260,6 +265,7 @@ export const store = new Vuex.Store({
       const officeSuppliesProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -314,7 +320,8 @@ export const store = new Vuex.Store({
         await fb.classbooksCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Classbook was updated!");
       } catch (error) {
@@ -326,6 +333,7 @@ export const store = new Vuex.Store({
       const classbookProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -380,7 +388,8 @@ export const store = new Vuex.Store({
         await fb.ranchesCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Product was updated!");
       } catch (error) {
@@ -392,6 +401,7 @@ export const store = new Vuex.Store({
       const ranchesProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -445,7 +455,8 @@ export const store = new Vuex.Store({
         await fb.giftsCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Product was updated!");
       } catch (error) {
@@ -457,6 +468,7 @@ export const store = new Vuex.Store({
       const giftProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -511,7 +523,8 @@ export const store = new Vuex.Store({
         await fb.boardGamesCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Board Game was updated!");
       } catch (error) {
@@ -523,6 +536,7 @@ export const store = new Vuex.Store({
       const boardGamesProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()
@@ -577,7 +591,8 @@ export const store = new Vuex.Store({
         await fb.artCollection.doc(itemForUpdate.id).update({
           name: itemForUpdate.name,
           price: itemForUpdate.price,
-          src: itemForUpdate.src
+          src: itemForUpdate.src,
+          desc: itemForUpdate.desc
         });
         alert("Art was updated!");
       } catch (error) {
@@ -589,6 +604,7 @@ export const store = new Vuex.Store({
       const artProduct = {
         name: payload.name,
         price: payload.price,
+        desc: payload.desc,
         userId: fb.auth.currentUser.uid,
         userName: state.userProfile.email,
         createdOn: new Date()

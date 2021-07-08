@@ -23,7 +23,7 @@
     height: 50px;
   }
   .modal-info h1 {
-    font-family: "Indie Flower", cursive;
+    font-family: 'Copperplate', fantasy;
     text-align: center;
   }
   .modal-info p {
@@ -33,8 +33,7 @@
   .add__modal-title {
     text-align: center;
     margin-bottom: 5px;
-    font-family: "Indie Flower", cursive;
-    font-weight: bold;
+    font-family: 'Copperplate', fantasy;
   }
   .preview-image {
     border: 1px solid black;
@@ -47,7 +46,7 @@
   }
   .modal-content-name,
   .modal-content-price {
-    font-family: "Indie Flower", cursive;
+    font-family: 'Copperplate', fantasy;
     text-align: center;
     margin-top: 20px;
   }

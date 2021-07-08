@@ -9,6 +9,13 @@
         type="text"
         :maxlength="130"
         v-model.lazy="itemForUpdate.name"/>
+        <h3 class="modal-content-price">Ranches Description:</h3>
+        <textarea
+         name="desc"
+         placeholder="Enter Description"
+         class="modal__product__price-textarea"
+         :maxlength="200"
+         v-model.lazy="itemForUpdate.desc"/>
         <h3 class="modal-content-price">Ranches Price:</h3>
         <textarea
          name="price"

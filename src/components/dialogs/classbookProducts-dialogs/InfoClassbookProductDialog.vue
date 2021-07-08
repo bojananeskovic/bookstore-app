@@ -2,7 +2,7 @@
     <Modal v-model="showInfoModal" modalClass="modal-wrapper modal-info">
       <h1>{{itemForInfo.name}}</h1>
       <br>
-      <p>{{itemForInfo.price}}</p>
+      <p>{{itemForInfo.desc}}</p>
       <div class="delete-action-buttons">
       <button class="btn btn-danger" @click="closeInfoModal">Close</button>
     </div>
