@@ -49,7 +49,9 @@
 </template>
 
 <script>
+
 export default {
+
    methods: {
       goToBookProducts() {
         this.$router.push('/products/book-products');
@@ -144,42 +146,42 @@ export default {
     text-shadow: 2px 2px black;
   }
 .book-products {
-    background-image: url("../../assets/book-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=635");
     background-repeat: no-repeat;
     background-size: cover;
   }
 .stationary-products{
-    background-image: url("../../assets/stationary-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=885");
     background-repeat: no-repeat;
     background-size: cover;
   }
 .officeSupplies-products{
-    background-image: url("../../assets/officeSupplies-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=534");
     background-repeat: no-repeat;
     background-size: cover;
   }
 .classbook-products{
-    background-image: url("../../assets/classbook-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=367");
     background-repeat: no-repeat;
     background-size: cover;
 }
 .ranches-products{
-    background-image: url("../../assets/ranches-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=464");
     background-repeat: no-repeat;
     background-size: cover;
 }
 .gifts-products{
-    background-image: url("../../assets/gifts-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=998");
     background-repeat: no-repeat;
     background-size: cover;
 }
 .boardGames-products{
-    background-image: url("../../assets/boardGames-products.jpg");
+    background-image: url("https://picsum.photos/300/450/?image=175");
     background-repeat: no-repeat;
     background-size: cover;
 }
 .art-products{
-    background-image: url("../../assets/art-products.jpg");
+  background-image: url("https://picsum.photos/300/450/?image=454");
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -17,21 +17,21 @@
       <!-- Text slides with image -->
       <b-carousel-slide
         img-height="200"
-        text="Welcome to the Bookstore app"
+        text="Welcome to the Bookstore"
         img-src="https://picsum.photos/1024/450/?image=1073"
         style="font-family: 'Copperplate', fantasy; color: rgb(223, 156, 130); font-size: 70px; "
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide
-       text="Welcome to the Bookstore app"
+       text="Welcome to the Bookstore"
       img-src="https://picsum.photos/1024/450/?image=20"
        style="font-family: 'Copperplate', fantasy; color: rgb(223, 156, 130); font-size: 70px;">
       </b-carousel-slide>
 
       <!-- Slides with image only -->
       <b-carousel-slide
-       text="Welcome to the Bookstore app"
+       text="Welcome to the Bookstore"
       img-src="https://picsum.photos/1024/450/?image=104"
       style="font-family: 'Copperplate', fantasy; color: rgb(223, 156, 130); font-size: 70px;"></b-carousel-slide>
 

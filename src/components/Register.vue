@@ -1,6 +1,7 @@
 <template>
+<div class="imagelogin-wrapper">
   <div class="register-page-wrapper">
-     <img src="../assets/user-256.png" style="padding:20px">
+     
     <b-form class="register-form" @submit="onSubmit" @reset="onReset" v-if="showForm">
       <b-form-group id="input-group-3" label="Your Name:" label-for="input-3">
         <b-form-input
@@ -53,6 +54,7 @@
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
   </div>
+</div>
 </template>
 
 <script>
@@ -96,21 +98,26 @@
 </script>
 
 <style scoped>
+.imagelogin-wrapper{
+  height: 100%;
+  background-image: url("https://picsum.photos/1552/882/?image=180");
+  background-repeat: no-repeat;
+}
   .register-page-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 550px;
-    margin-top: 30px;
-    height: 800px;
+    margin-left: 480px;
+    
+    height: 600px;
     width: 400px;
     background: rgb(241, 193, 173);
 
   }
   .register-form {
     font-family: "Verdana", Sans-serif;
-    margin-top: 50px;
+    margin-top: 15px;
   }
   #input-1,
   #input-2 {

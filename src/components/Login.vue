@@ -1,9 +1,6 @@
 <template>
+<div class="imagelogin-wrapper">
   <div class="login-page-wrapper">
-
-   <img src="../assets/user-256.png" style="padding:20px">
-
-
     <b-form
       class="login-form"
       @submit="onSubmit"
@@ -55,6 +52,7 @@
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
   </div>
+  </div>
 </template>
 
 
@@ -93,14 +91,18 @@ export default {
 </script>
 
 <style scoped>
+.imagelogin-wrapper{
+  height: 100%;
+  background-image: url("https://picsum.photos/1552/882/?image=180");
+  background-repeat: no-repeat;
+}
   .login-page-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 550px;
-    margin-top: 30px;
-    height: 700px;
+    margin-left: 500px;
+    height: 600px;
     width: 400px;
     background: rgb(241, 193, 173);
 

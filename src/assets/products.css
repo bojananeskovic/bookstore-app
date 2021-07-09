@@ -9,8 +9,8 @@
     width: 100%;
     align-items: center;
     justify-content: center;
-    background-image: url("../assets/library.jpg");
-    background-repeat: no-repeat;
+    background-image: url("https://picsum.photos/1024/450/?image=307");
+    background-repeat: repeat;
   }
   .all-products {
     padding: 50px 20px;
